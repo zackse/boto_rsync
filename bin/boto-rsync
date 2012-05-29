@@ -550,12 +550,10 @@ def main():
                     # determine if the file should be excluded according to command line arguments.
                     excludeFile = False
                     for excludePath in exclude:
-                        if fullpath.startswith(excludePath):
+                        if excludePath in fullpath:
                             excludeFile = True
                             continue
-                        elif fullpath[len(path):].lstrip(os.sep).startswith(excludePath):
-                            excludeFile = True
-                            continue
+
                     if excludeFile:
                         sys.stdout.write(
                             'Skipping %s (excluded path)\n' %

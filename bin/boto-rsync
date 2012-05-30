@@ -550,7 +550,7 @@ def main():
                     # determine if the file should be excluded according to command line arguments.
                     excludeFile = False
                     for excludePath in exclude:
-                        if excludePath in fullpath:
+                        if fnmatch(file, excludePath):
                             excludeFile = True
                             continue
 

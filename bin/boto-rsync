@@ -545,7 +545,14 @@ def main():
                     
                     fullpath = os.path.join(root, file)
                     key_name = cloud_path + get_key_name(fullpath, path)
-                    file_size = os.path.getsize(fullpath)
+                    try:
+                        file_size = os.path.getsize(fullpath)
+                    except Exception as e:
+                        sys.stdout.write(
+                            'Skipping %s due to error: %s\n' %
+                            (fullpath[len(path):].lstrip(os.sep), str(e))
+                        )
+                        continue
                     
                     # determine if the file should be excluded according to command line arguments.
                     excludeFile = False

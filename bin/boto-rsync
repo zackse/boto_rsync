@@ -512,6 +512,23 @@ def main():
                                     key_name.replace('_$folder$', '/')
                                     )
                             create_dirkey = False
+                    else:
+                        # determine if dir tree should be excluded
+                        prune = False
+                        relative_path = root[len(path):].lstrip(os.sep)
+                        for excludePath in exclude:
+                            if fnmatch(relative_path, excludePath):
+                                sys.stdout.write(
+                                    'Skipping %s (excluded dir tree)\n' %
+                                    relative_path
+                                )
+                                prune = True
+                                break
+                            pass
+                        # don't recurse into subdirectories
+                        if prune:
+                            del dirs[:]
+                            continue
                     
                     if create_dirkey:
                         sys.stdout.write(

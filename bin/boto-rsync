@@ -555,16 +555,16 @@ def main():
                         continue
                     
                     # determine if the file should be excluded according to command line arguments.
+                    relative_path = fullpath[len(path):].lstrip(os.sep)
                     excludeFile = False
                     for excludePath in exclude:
-                        if fnmatch(file, excludePath):
+                        if fnmatch(relative_path, excludePath):
                             excludeFile = True
                             continue
 
                     if excludeFile:
                         sys.stdout.write(
-                            'Skipping %s (excluded path)\n' %
-                            fullpath[len(path):].lstrip(os.sep)
+                            'Skipping %s (excluded path)\n' % relative_path
                         )
                         continue
                     
